@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpStatus } from '@nestjs/common';
 import { Evaluation } from './evaluations.entity';
 import { EvaluationsService } from './evaluations.service';
 
@@ -7,24 +7,24 @@ import { EvaluationsService } from './evaluations.service';
 export class EvaluationsController {
     constructor(private evaluationService: EvaluationsService) { }
 
-    // @Post('create')
-    // create(@Body() evaluation: Evaluation) {
-    //     return this.evaluationService.create(evaluation);
-    // }
 
-    // @Get('findAll')
-    // findAll() {
-    //     return this.evaluationService.findAll();
-    // }
+    @Get()
+    async findAll() {
+        const users = await this.evaluationService.findAll();
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Busca realizada com sucesso',
+            users
+        };
+    }
 
-
-    // @Patch(':id')
-    // update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
-    //     return this.evaluationService.update(+id, updateCustomerDto);
-    // }
-
-    // @Delete(':id')
-    // remove(@Param('id') id: string) {
-    //     return this.evaluationService.remove(+id);
-    // }
+    @Post()
+    async createUsers(@Body() evaluation: Evaluation) {
+        const user = await this.evaluationService.create(evaluation);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Avaliação criada com sucesso',
+            user
+        };
+    }
 }

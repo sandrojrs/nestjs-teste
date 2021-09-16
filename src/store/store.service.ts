@@ -9,24 +9,27 @@ export class StoreService {
 
     constructor(
         @InjectRepository(Store)
-        private StoreRepository: Repository<Store>
+        private storeRepository: Repository<Store>
     ) { }
 
-    async findAll(): Promise<Store[]> {
-        return await this.StoreRepository.find();
+    async findAll() {
+        return await this.storeRepository.find();
     }
 
     async create(store: Store) {
-        this.StoreRepository.create(store)
-        return await this.StoreRepository.save(store)
+        const user = this.storeRepository.create(store);
+        await this.storeRepository.save(store);
+        return user;
     }
 
-    async update(store: Store) {
-        this.StoreRepository.save(store)
+    async update(id: number, store: Store) {
+        await this.storeRepository.update({ id }, store);
+        return await this.storeRepository.findOne({ id });
     }
 
-    async delete(store: Store) {
-        this.StoreRepository.delete(store);
+    async destroy(id: number) {
+        await this.storeRepository.delete({ id });
+        return { deleted: true };
     }
 
 }

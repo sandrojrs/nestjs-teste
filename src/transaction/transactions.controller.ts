@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, HttpStatus } from '@nestjs/common';
 import { Transaction } from './Transactions.entity';
 import { TransactionService } from './Transactions.service';
 
@@ -7,25 +7,42 @@ import { TransactionService } from './Transactions.service';
 export class TransactionController {
     constructor(private transactionService: TransactionService) { }
 
-    // @Post('create')
-    // create(@Body() transactions: Transaction) {
-    //     return this.transactionService.create(transactions);
+    @Get()
+    async findAll() {
+        const users = await this.transactionService.findAll();
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Busca realizada com sucesso',
+            users
+        };
+    }
+
+    // @Post()
+    // async createUsers(@Body() tRANM: Transaction) {
+    //     const user = await this.transactionService.create(Transaction);
+    //     return {
+    //         statusCode: HttpStatus.OK,
+    //         message: 'Cliente criado com sucesso',
+    //         user
+    //     };
     // }
 
-    // @Get('findAll')
-    // findAll() {
-    //     return this.transactionService.findAll();
-    // }
+    @Patch(':id')
+    async uppdate(@Param('id') id: number, @Body() Transaction: Transaction) {
+        await this.transactionService.update(id, Transaction);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Cliente atualizado com sucesso',
+        };
+    }
 
-
-    // @Patch(':id')
-    // update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
-    //     return this.customerService.update(+id, updateCustomerDto);
-    // }
-
-    // @Delete(':id')
-    // remove(@Param('id') id: string) {
-    //     return this.customerService.remove(+id);
-    // }
+    @Delete(':id')
+    async delete(@Param('id') id: number) {
+        await this.transactionService.destroy(id);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Cliente excluido com sucesso',
+        };
+    }
 }
 

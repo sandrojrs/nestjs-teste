@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CollaboratorModule } from './collaborator/collaborator.module';
-import { ContactsModule } from './contacts/contacts.module';
+import { CustomersModule } from './customer/customers.module';
 import { EvaluationsModule } from './evaluation/evaluations.module';
 import { StoreModule } from './store/store.module';
 import { TransactionModule } from './transaction/transactions.module';
@@ -14,9 +14,9 @@ import { TransactionModule } from './transaction/transactions.module';
       port: 3306,
       username: 'root',
       password: '',
-      database: 'solucx1',
+      database: 'solucx',
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
-    }), ContactsModule, CollaboratorModule, StoreModule, TransactionModule, EvaluationsModule]
+    }), CollaboratorModule, StoreModule, CustomersModule, TransactionModule, EvaluationsModule]
 })
 export class AppModule { }

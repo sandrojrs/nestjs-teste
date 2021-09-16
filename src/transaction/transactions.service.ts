@@ -8,25 +8,29 @@ export class TransactionService {
 
     constructor(
         @InjectRepository(Transaction)
-        private TransactionRepository: Repository<Transaction>
+        private transactionRepository: Repository<Transaction>
 
     ) { }
 
-    async findAll(): Promise<Transaction[]> {
-        return this.TransactionRepository.find({ relations: ['customer', 'collaborator', 'store'] });
+
+    async findAll() {
+        return await this.transactionRepository.find();
     }
 
-    async create(transaction: Transaction) {
-        this.TransactionRepository.create(transaction)
-        return this.TransactionRepository.save(transaction)
+    // async create(transaction: Transaction) {
+    //     const user = this.transactionRepository.create(transaction);
+    //     await this.transactionRepository.save(transaction);
+    //     return user;
+    // }
+
+    async update(id: number, transaction: Transaction) {
+        await this.transactionRepository.update({ id }, transaction);
+        return await this.transactionRepository.findOne({ id });
     }
 
-    async update(transaction: Transaction) {
-        this.TransactionRepository.save(transaction)
-    }
-
-    async delete(transaction: Transaction) {
-        this.TransactionRepository.delete(transaction);
+    async destroy(id: number) {
+        await this.transactionRepository.delete({ id });
+        return { deleted: true };
     }
 
 }

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, HttpStatus } from '@nestjs/common';
 import { Store } from './store.entity';
 import { StoreService } from './store.service';
 
@@ -8,25 +8,41 @@ export class StoreController {
     constructor(private storeService: StoreService) { }
 
 
-    @Post('create')
-    create(@Body() store: Store) {
-
-        return this.storeService.create(store);
+    @Get()
+    async findAll() {
+        const users = await this.storeService.findAll();
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Busca realizada com sucesso',
+            users
+        };
     }
 
-    @Get('findAll')
-    findAll() {
-        return this.storeService.findAll();
+    @Post()
+    async createUsers(@Body() store: Store) {
+        const user = await this.storeService.create(store);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Cliente criado com sucesso',
+            user
+        };
     }
 
+    @Patch(':id')
+    async uppdate(@Param('id') id: number, @Body() store: Store) {
+        await this.storeService.update(id, store);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Cliente atualizado com sucesso',
+        };
+    }
 
-    // @Patch(':id')
-    // update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
-    //     return this.customerService.update(+id, updateCustomerDto);
-    // }
-
-    // @Delete(':id')
-    // remove(@Param('id') id: string) {
-    //     return this.customerService.remove(+id);
-    // }
+    @Delete(':id')
+    async delete(@Param('id') id: number) {
+        await this.storeService.destroy(id);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Cliente excluido com sucesso',
+        };
+    }
 }

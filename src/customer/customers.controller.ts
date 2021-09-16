@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, HttpStatus } from '@nestjs/common';
 import { Customer } from './customers.entity';
 import { CustomersService } from './customers.service';
 
@@ -9,28 +9,36 @@ export class CustomersController {
     constructor(private customerService: CustomersService) { }
 
 
-    @Post('create')
-    create(@Body() customer: Customer) {
+    @Get()
+    async findAll() {
+        const users = await this.customerService.findAll();
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Busca realizada com sucesso',
+            users
+        };
+    }
+
+    @Post()
+    createUsers(@Body() customer: Customer) {
         return this.customerService.create(customer);
     }
 
-    @Get('findAll')
-    findAll() {
-        return this.customerService.findAll();
+    @Patch(':id')
+    async uppdate(@Param('id') id: number, @Body() customer: Customer) {
+        await this.customerService.update(id, customer);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Cliente atualizado com sucesso',
+        };
     }
 
-    @Get('findOne/:id')
-    findOne(@Param('id') id: number) {
-        return this.customerService.findOne(+id);
+    @Delete(':id')
+    async delete(@Param('id') id: number) {
+        await this.customerService.destroy(id);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Cliente excluido com sucesso',
+        };
     }
-
-    // @Patch(':id')
-    // update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
-    //     return this.customerService.update(+id, updateCustomerDto);
-    // }
-
-    // @Delete(':id')
-    // remove(@Param('id') id: string) {
-    //     return this.customerService.remove(+id);
-    // }
 }

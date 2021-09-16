@@ -1,5 +1,6 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsCPF, IsPhone } from 'brazilian-class-validator';
 
 
 @Entity()
@@ -13,14 +14,17 @@ export class Customer {
     name: string;
 
     @Column()
-    @IsEmail()
+    @IsEmail({}, {
+        message: 'Digite um email valido',
+    })
     email: string;
 
     @Column()
-    @IsNotEmpty()
-    telephone: string;
+    @IsPhone({ message: 'Digite um telefone Valido' })
+    phone: string;
 
     @Column()
     @IsNotEmpty()
+    @IsCPF({ message: 'Digite um CPF valido' })
     cpf: string;
 }

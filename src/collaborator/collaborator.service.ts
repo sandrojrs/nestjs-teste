@@ -12,21 +12,24 @@ export class CollaboratorService {
         private collaboratorRepository: Repository<Collaborator>
     ) { }
 
-    async findAll(): Promise<Collaborator[]> {
-        return this.collaboratorRepository.find();
+    async findAll() {
+        return await this.collaboratorRepository.find();
     }
 
     async create(collaborator: Collaborator) {
-        this.collaboratorRepository.create(collaborator)
-        return this.collaboratorRepository.save(collaborator)
+        const user = this.collaboratorRepository.create(collaborator);
+        await this.collaboratorRepository.save(collaborator);
+        return user;
     }
 
-    async update(collaborator: Collaborator) {
-        this.collaboratorRepository.save(collaborator)
+    async update(id: number, collaborator: Collaborator) {
+        await this.collaboratorRepository.update({ id }, collaborator);
+        return await this.collaboratorRepository.findOne({ id });
     }
 
-    async delete(collaborator: Collaborator) {
-        this.collaboratorRepository.delete(collaborator);
+    async destroy(id: number) {
+        await this.collaboratorRepository.delete({ id });
+        return { deleted: true };
     }
 
 }

@@ -9,24 +9,17 @@ export class EvaluationsService {
 
     constructor(
         @InjectRepository(Evaluation)
-        private EvaluationsRepository: Repository<Evaluation>
+        private evaluationsRepository: Repository<Evaluation>
     ) { }
 
-    async findAll(): Promise<Evaluation[]> {
-        return this.EvaluationsRepository.find();
+    async findAll() {
+        return await this.evaluationsRepository.find({ relations: ['transaction'] });
     }
 
     async create(evaluation: Evaluation) {
-        this.EvaluationsRepository.create(evaluation)
-        return this.EvaluationsRepository.save(evaluation);
-    }
-
-    async update(evaluation: Evaluation) {
-        this.EvaluationsRepository.save(evaluation)
-    }
-
-    async delete(evaluation: Evaluation) {
-        this.EvaluationsRepository.delete(evaluation);
+        const user = this.evaluationsRepository.create(evaluation);
+        await this.evaluationsRepository.save(evaluation);
+        return user;
     }
 
 }

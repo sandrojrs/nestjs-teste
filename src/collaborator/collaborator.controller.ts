@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Patch, Delete, Body, Param, HttpStatus } from '@nestjs/common';
 import { Collaborator } from './collaborator.entity';
 import { CollaboratorService } from './collaborator.service';
 
@@ -8,24 +8,42 @@ export class CollaboratorController {
     constructor(private collaboratorService: CollaboratorService) { }
 
 
-    @Post('create')
-    create(@Body() collaborator: Collaborator) {
-        return this.collaboratorService.create(collaborator);
+
+    @Get()
+    async findAll() {
+        const users = await this.collaboratorService.findAll();
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Busca realizada com sucesso',
+            users
+        };
     }
 
-    @Get('findAll')
-    findAll() {
-        return this.collaboratorService.findAll();
+    @Post()
+    async createUsers(@Body() collaborator: Collaborator) {
+        const user = await this.collaboratorService.create(collaborator);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Colaborador criado com sucesso',
+            user
+        };
     }
 
+    @Patch(':id')
+    async uppdate(@Param('id') id: number, @Body() collaborator: Collaborator) {
+        await this.collaboratorService.update(id, collaborator);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Colaborador atualizado com sucesso',
+        };
+    }
 
-    // @Patch(':id')
-    // update(@Param('id') id: string, @Body() updateCustomerDto: UpdateCustomerDto) {
-    //     return this.customerService.update(+id, updateCustomerDto);
-    // }
-
-    // @Delete(':id')
-    // remove(@Param('id') id: string) {
-    //     return this.customerService.remove(+id);
-    // }
+    @Delete(':id')
+    async delete(@Param('id') id: number) {
+        await this.collaboratorService.destroy(id);
+        return {
+            statusCode: HttpStatus.OK,
+            message: 'Colaborador excluido com sucesso',
+        };
+    }
 }
