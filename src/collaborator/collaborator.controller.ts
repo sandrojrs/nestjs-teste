@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, HttpStatus } from '@nestjs/common';
 import { Collaborator } from './collaborator.entity';
 import { CollaboratorService } from './collaborator.service';
 
@@ -34,7 +34,7 @@ export class CollaboratorController {
 
     }
 
-    @Patch(':id')
+    @Put(':id')
     async uppdate(@Param('id') id: number, @Body() collaborator: Collaborator) {
         try {
             await this.collaboratorService.update(id, collaborator);

@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, HttpStatus } from '@nestjs/common';
 import { Transaction } from './Transactions.entity';
 import { TransactionService } from './Transactions.service';
 
@@ -40,13 +40,14 @@ export class TransactionController {
 
     }
 
-    @Patch(':id')
-    async uppdate(@Param('id') id: number, @Body() Transaction: Transaction) {
+    @Put(':id')
+    async update(@Param('id') id: number, @Body() transaction: Transaction) {
         try {
-            await this.transactionService.update(id, Transaction);
+            const updates = await this.transactionService.update(id, transaction);
             return {
                 statusCode: HttpStatus.OK,
                 message: 'Transação atualizada com sucesso',
+                updates
             };
 
         } catch (error) {
@@ -58,10 +59,11 @@ export class TransactionController {
     @Delete(':id')
     async delete(@Param('id') id: number) {
         try {
-            await this.transactionService.destroy(id);
+            const deleteId = await this.transactionService.destroy(id);
             return {
                 statusCode: HttpStatus.OK,
                 message: 'Transação excluida com sucesso',
+                deleteId
             };
         } catch (error) {
             return

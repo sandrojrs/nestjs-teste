@@ -32,7 +32,7 @@
             }
         },
         "/collaborator/{id}": {
-            "patch": {
+            "put": {
                 "operationId": "CollaboratorController_uppdate",
                 "parameters": [
                     {
@@ -110,7 +110,7 @@
             }
         },
         "/store/{id}": {
-            "patch": {
+            "put": {
                 "operationId": "StoreController_uppdate",
                 "parameters": [
                     {
@@ -188,7 +188,7 @@
             }
         },
         "/customer/{id}": {
-            "patch": {
+            "put": {
                 "operationId": "CustomersController_uppdate",
                 "parameters": [
                     {
@@ -266,7 +266,7 @@
             }
         },
         "/transaction/{id}": {
-            "patch": {
+            "put": {
                 "operationId": "TransactionController_uppdate",
                 "parameters": [
                     {

@@ -23,19 +23,19 @@ export class Transaction {
     value: number;
 
     @ApiProperty()
-    @OneToOne(() => Customer, { cascade: ['insert', 'remove'] })
+    @OneToOne(() => Customer, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
     @JoinColumn()
     @IsNotEmpty({ message: "O id do cliente não pode ser vazio" })
     customer: Customer;
 
     @ApiProperty()
-    @OneToOne(() => Store, { cascade: ['insert', 'remove'] })
+    @OneToOne(() => Store, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
     @JoinColumn()
     @IsNotEmpty({ message: "A loja deve ser preenchida" })
     store: Store;
 
     @ApiProperty()
-    @OneToOne(() => Collaborator, { cascade: ['insert', 'remove'] })
+    @OneToOne(() => Collaborator, { onUpdate: 'CASCADE', onDelete: 'CASCADE' })
     @JoinColumn()
     @IsNotEmpty({ message: "O colaborador deve ser preenchido" })
     collaborator: Collaborator;

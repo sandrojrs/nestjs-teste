@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Patch, Delete, Body, Param, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, HttpStatus } from '@nestjs/common';
 import { Customer } from './customers.entity';
 import { CustomersService } from './customers.service';
 
@@ -40,7 +40,7 @@ export class CustomersController {
 
     }
 
-    @Patch(':id')
+    @Put(':id')
     async uppdate(@Param('id') id: number, @Body() customer: Customer) {
         try {
             await this.customerService.update(id, customer);

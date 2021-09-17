@@ -29,9 +29,15 @@ export class TransactionService {
         return await this.transactionRepository.findOne({ id });
     }
 
+
     async destroy(id: number) {
-        await this.transactionRepository.delete({ id });
-        return { deleted: true };
+
+        try {
+            await this.transactionRepository.delete({ id });
+            return { deleted: true };
+        } catch (error) {
+            return
+        }
     }
 
 }
