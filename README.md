@@ -41,11 +41,11 @@ Em seguida, vem a configuração TypeORM: mude tudo de acordo com sua própria c
 Agora você está pronto para iniciar o aplicativo NestJS usando o comando abaixo.
 
 
-# Inicie o servidor de desenvolvimento com TSNode
+## Inicie o servidor de desenvolvimento com TSNode
 npm run start
 `` `
 
-# Documentação
+## Documentação
 Agora você pode ir para `http://localhost:3000/swagger/` e ver seus documentos da API Swagger
 
 ## 2. Comandos NPM padrão
@@ -53,16 +53,16 @@ Agora você pode ir para `http://localhost:3000/swagger/` e ver seus documentos 
 Os comandos NPM abaixo já estão incluídos neste modelo e podem ser usados ​​para executar, construir e testar seu projeto rapidamente.
 
 `` `sh
-# Inicie o aplicativo usando o NodeJS transpilado
+## Inicie o aplicativo usando o NodeJS transpilado
 npm run start
 
-# Execute o aplicativo usando "ts-node"
+## Execute o aplicativo usando "ts-node"
 npm run dev
 
-# Transpile os arquivos TypeScript
+## Transpile os arquivos TypeScript
 npm run build
 
-# Execute os testes funcionais do projeto
+## Execute os testes funcionais do projeto
 npm run test
 
 ## 3. Metas do projeto
