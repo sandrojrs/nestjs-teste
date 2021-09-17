@@ -1,73 +1,78 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo_text.svg" width="320" alt="Nest Logo" /></a>
-</p>
+# Modelo de projeto de API NestJS 7
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+- API REST com suporte [TypeORM] (http://typeorm.io)
+- Estrutura de pastas, exemplos de código e melhores práticas
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## 1. Primeiros passos
 
-## Description
+### 1.1 Requisitos
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+Antes de começar, certifique-se de ter pelo menos esses componentes em sua estação de trabalho:
 
-## Installation
+- Uma versão atualizada de [NodeJS] (https://nodejs.org/) e NPM
+- Um banco de dados MySQL .
 
-```bash
-$ npm install
-```
+### 1.2 Configuração do projeto
 
-## Running the app
+Comece clonando este projeto em sua estação de trabalho.
 
-```bash
-# development
-$ npm run start
+`` `sh
+git clone https://github.com/sandrojrs/nestjs-teste my-project
+`` `
 
-# watch mode
-$ npm run start:dev
+O próximo passo será instalar todas as dependências do projeto.
 
-# production mode
-$ npm run start:prod
-```
+`` `sh
+cd ./my-project
+npm install
+`` `
 
-## Test
+Uma vez que as dependências são instaladas, você pode configurar seu projeto criando um novo arquivo `.env` contendo suas variáveis ​​de ambiente usadas para desenvolvimento.
 
-```bash
-# unit tests
-$ npm run test
+`` `
 
-# e2e tests
-$ npm run test:e2e
+Para uma configuração de desenvolvimento padrão, você pode deixar os valores padrão para `API_PORT`,` API_PREFIX` e `API_CORS` na seção` Configuração da API`. A regra `SWAGGER_ENABLE` permite que você controle o módulo de documentação Swagger para NestJS. Deixe em `1` ao iniciar este exemplo.
 
-# test coverage
-$ npm run test:cov
-```
+Em seguida, vem a configuração TypeORM: mude tudo de acordo com sua própria configuração de banco de dados. Também pode ser útil transformar `TYPEORM_SYNCHRONIZE` em` true` para evitar migrações durante a fase de desenvolvimento. Não modifique os valores na seção `TypeORM internos`, a menos que você altere a estrutura da pasta.
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+### 1.3 Lançar e descobrir
 
-## Stay in touch
+Agora você está pronto para iniciar o aplicativo NestJS usando o comando abaixo.
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
-## License
+# Inicie o servidor de desenvolvimento com TSNode
+npm run start
+`` `
 
-Nest is [MIT licensed](LICENSE).
+# Documentação
+Agora você pode ir para `http://localhost:3000/swagger/` e ver seus documentos da API Swagger
+
+## 2. Comandos NPM padrão
+
+Os comandos NPM abaixo já estão incluídos neste modelo e podem ser usados ​​para executar, construir e testar seu projeto rapidamente.
+
+`` `sh
+# Inicie o aplicativo usando o NodeJS transpilado
+npm run start
+
+# Execute o aplicativo usando "ts-node"
+npm run dev
+
+# Transpile os arquivos TypeScript
+npm run build
+
+# Execute os testes funcionais do projeto
+npm run test
+
+## 3. Metas do projeto
+
+Este é um projeto de uma API REST construída com NestJS, Mysql  e TypeOrm com objetivo de melhorias de habilidades.
+
+## 4. Roteiro
+
+As seguintes melhorias estão em andamento:
+
+- [x] Testes automatizados
+
+

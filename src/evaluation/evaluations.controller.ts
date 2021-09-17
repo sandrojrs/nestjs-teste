@@ -10,21 +10,35 @@ export class EvaluationsController {
 
     @Get()
     async findAll() {
-        const users = await this.evaluationService.findAll();
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Busca realizada com sucesso',
-            users
-        };
+        try {
+            const users = await this.evaluationService.findAll();
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Busca realizada com sucesso',
+                users
+            };
+
+        } catch (error) {
+            return error
+        }
+
     }
 
     @Post()
-    async createUsers(@Body() evaluation: Evaluation) {
-        const user = await this.evaluationService.create(evaluation);
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Avaliação criada com sucesso',
-            user
-        };
+    async createEvaluations(@Body() evaluations: Evaluation) {
+        try {
+            const evaluation = await this.evaluationService.create(evaluations);
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Avaliação criada com sucesso',
+                evaluation
+            };
+
+        } catch (error) {
+
+            return error
+
+        }
+
     }
 }

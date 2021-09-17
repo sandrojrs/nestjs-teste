@@ -9,40 +9,64 @@ export class TransactionController {
 
     @Get()
     async findAll() {
-        const users = await this.transactionService.findAll();
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Busca realizada com sucesso',
-            users
-        };
+        try {
+            const transaction = await this.transactionService.findAll();
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Busca realizada com sucesso',
+                transaction
+            };
+
+        } catch (error) {
+            return error
+
+        }
+
     }
 
-    // @Post()
-    // async createUsers(@Body() tRANM: Transaction) {
-    //     const user = await this.transactionService.create(Transaction);
-    //     return {
-    //         statusCode: HttpStatus.OK,
-    //         message: 'Cliente criado com sucesso',
-    //         user
-    //     };
-    // }
+    @Post()
+    async createTransaction(@Body() transactions: Transaction) {
+        try {
+            const transaction = await this.transactionService.create(transactions);
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Transação criada com sucesso',
+                transaction
+            };
+
+        } catch (error) {
+            return error
+        }
+
+    }
 
     @Patch(':id')
     async uppdate(@Param('id') id: number, @Body() Transaction: Transaction) {
-        await this.transactionService.update(id, Transaction);
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Cliente atualizado com sucesso',
-        };
+        try {
+            await this.transactionService.update(id, Transaction);
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Transação atualizada com sucesso',
+            };
+
+        } catch (error) {
+            return error
+        }
+
     }
 
     @Delete(':id')
     async delete(@Param('id') id: number) {
-        await this.transactionService.destroy(id);
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Cliente excluido com sucesso',
-        };
+        try {
+            await this.transactionService.destroy(id);
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Transação excluida com sucesso',
+            };
+        } catch (error) {
+            return
+        }
+
     }
 }
 

@@ -10,39 +10,65 @@ export class StoreController {
 
     @Get()
     async findAll() {
-        const users = await this.storeService.findAll();
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Busca realizada com sucesso',
-            users
-        };
+        try {
+            const store = await this.storeService.findAll();
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Busca realizada com sucesso',
+                store
+            };
+
+        } catch (error) {
+            return error
+        }
+
     }
 
     @Post()
-    async createUsers(@Body() store: Store) {
-        const user = await this.storeService.create(store);
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Cliente criado com sucesso',
-            user
-        };
+    async createStore(@Body() stores: Store) {
+
+        try {
+            const store = await this.storeService.create(stores);
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Loja criada com sucesso',
+                store
+            };
+
+        } catch (error) {
+            return error
+
+        }
+
     }
 
     @Patch(':id')
     async uppdate(@Param('id') id: number, @Body() store: Store) {
-        await this.storeService.update(id, store);
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Cliente atualizado com sucesso',
-        };
+        try {
+            await this.storeService.update(id, store);
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Loja atualizado com sucesso',
+            };
+
+        } catch (error) {
+            return error
+        }
+
     }
 
     @Delete(':id')
     async delete(@Param('id') id: number) {
-        await this.storeService.destroy(id);
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Cliente excluido com sucesso',
-        };
+        try {
+            await this.storeService.destroy(id);
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Loja excluida com sucesso',
+            };
+
+        } catch (error) {
+            return error
+        }
+
     }
 }

@@ -1,5 +1,7 @@
 // import { IsNotEmpty } from 'class-validator';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { IsNotEmpty } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 
 @Entity()
 export class Collaborator {
@@ -7,8 +9,9 @@ export class Collaborator {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
-    // @IsNotEmpty()
+    @ApiProperty()
+    @Column({ unique: true })
+    @IsNotEmpty({ message: "O campo não pode ser vazio" })
     name: string;
 }
 

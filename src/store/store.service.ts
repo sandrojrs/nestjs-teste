@@ -16,10 +16,10 @@ export class StoreService {
         return await this.storeRepository.find();
     }
 
-    async create(store: Store) {
-        const user = this.storeRepository.create(store);
-        await this.storeRepository.save(store);
-        return user;
+    async create(stores: Store) {
+        const store = this.storeRepository.create(stores);
+        await this.storeRepository.save(stores);
+        return store;
     }
 
     async update(id: number, store: Store) {

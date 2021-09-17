@@ -1,5 +1,7 @@
+import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty } from 'class-validator';
-import { Entity, Column, PrimaryGeneratedColumn, OneToOne, JoinColumn } from 'typeorm';
+import { Evaluation } from 'src/evaluation/evaluations.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToOne, OneToMany, JoinColumn } from 'typeorm';
 import { Collaborator } from '../collaborator/collaborator.entity';
 import { Customer } from '../customer/customers.entity';
 import { Store } from '../store/store.entity';
@@ -10,28 +12,36 @@ export class Transaction {
     @PrimaryGeneratedColumn()
     id: number;
 
+    @ApiProperty()
     @Column()
-    @IsNotEmpty()
+    @IsNotEmpty({ message: "A data não pode ser vazia" })
     date: Date;
 
+    @ApiProperty()
     @Column()
-    @IsNotEmpty()
+    @IsNotEmpty({ message: "O valor não pode ser vazio" })
     value: number;
 
-    @OneToOne(() => Customer)
+    @ApiProperty()
+    @OneToOne(() => Customer, { cascade: ['insert', 'remove'] })
     @JoinColumn()
-    @IsNotEmpty()
+    @IsNotEmpty({ message: "O id do cliente não pode ser vazio" })
     customer: Customer;
 
-    @OneToOne(() => Store)
+    @ApiProperty()
+    @OneToOne(() => Store, { cascade: ['insert', 'remove'] })
     @JoinColumn()
-    @IsNotEmpty()
+    @IsNotEmpty({ message: "A loja deve ser preenchida" })
     store: Store;
 
-    @OneToOne(() => Collaborator)
+    @ApiProperty()
+    @OneToOne(() => Collaborator, { cascade: ['insert', 'remove'] })
     @JoinColumn()
-    @IsNotEmpty()
+    @IsNotEmpty({ message: "O colaborador deve ser preenchido" })
     collaborator: Collaborator;
 
+    @OneToMany(() => Evaluation, evaluation => evaluation.transaction)
+    evaluation: Evaluation[];
 }
+
 

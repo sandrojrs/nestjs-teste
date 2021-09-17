@@ -16,10 +16,10 @@ export class CollaboratorService {
         return await this.collaboratorRepository.find();
     }
 
-    async create(collaborator: Collaborator) {
-        const user = this.collaboratorRepository.create(collaborator);
-        await this.collaboratorRepository.save(collaborator);
-        return user;
+    async create(collaborators: Collaborator) {
+        const collaborator = this.collaboratorRepository.create(collaborators);
+        await this.collaboratorRepository.save(collaborators);
+        return collaborator;
     }
 
     async update(id: number, collaborator: Collaborator) {

@@ -11,39 +11,56 @@ export class CollaboratorController {
 
     @Get()
     async findAll() {
-        const users = await this.collaboratorService.findAll();
+        const collaborator = await this.collaboratorService.findAll();
         return {
             statusCode: HttpStatus.OK,
             message: 'Busca realizada com sucesso',
-            users
+            collaborator
         };
     }
 
     @Post()
-    async createUsers(@Body() collaborator: Collaborator) {
-        const user = await this.collaboratorService.create(collaborator);
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Colaborador criado com sucesso',
-            user
-        };
+    async createCollaborator(@Body() collaborators: Collaborator) {
+        try {
+            const collaborador = await this.collaboratorService.create(collaborators);
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Colaborador criado com sucesso',
+                collaborador
+            };
+        } catch (error) {
+            return error
+        }
+
     }
 
     @Patch(':id')
     async uppdate(@Param('id') id: number, @Body() collaborator: Collaborator) {
-        await this.collaboratorService.update(id, collaborator);
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Colaborador atualizado com sucesso',
-        };
+        try {
+            await this.collaboratorService.update(id, collaborator);
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Colaborador atualizado com sucesso',
+            };
+
+        } catch (error) {
+            return error
+        }
+
     }
 
     @Delete(':id')
     async delete(@Param('id') id: number) {
-        await this.collaboratorService.destroy(id);
-        return {
-            statusCode: HttpStatus.OK,
-            message: 'Colaborador excluido com sucesso',
-        };
+        try {
+            await this.collaboratorService.destroy(id);
+            return {
+                statusCode: HttpStatus.OK,
+                message: 'Colaborador excluido com sucesso',
+            };
+
+        } catch (error) {
+            return error
+        }
+
     }
 }
